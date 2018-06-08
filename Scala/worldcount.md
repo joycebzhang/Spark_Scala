@@ -41,3 +41,9 @@ nospace: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[12] at flatMap at <
 scala> nospace.take(50)
 res16: Array[String] = Array(A, MIDSUMMER, NIGHT, S, DREAM, Now, fair, Hippolyta, our, nuptial, hour, Draws, on, apace, four, happy, days, bring, in, Another, moon, but, O, methinks, how, slow, This, old, moon, wanes, she, lingers, my, desires, Like, to, a, step, dame, or, a, dowager, Long, withering, out, a, young, man, s, revenue)
 
+scala> val noempty = nospace.filter(word => word.length >0)
+noempty: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[8] at filter at <console>:30
+
+scala> noempty.take(5)
+res5: Array[String] = Array(A, MIDSUMMER, NIGHT, S, DREAM)
+
