@@ -1,4 +1,5 @@
 
+
 1 Open a scala spark shell in local mode
 
 [root@sandbox-hdp ~]# spark-shell local master
@@ -46,4 +47,15 @@ noempty: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[8] at filter at <co
 
 scala> noempty.take(5)
 res5: Array[String] = Array(A, MIDSUMMER, NIGHT, S, DREAM)
+
+4.convert to key value pair
+scala> val pair = noempty.map( words => (words.ToLowercase ,1))
+
+scala> pair.reduceByKey( _ +  _).map(kv => kv.swap).take(10)
+res16: Array[(Int, String)] = Array((3,pinnace), (20,bone), (2,lug), (2,vailing), (3,bombast), (10,gaping), (10,hem), (48,forsooth), (1,stinks), (720,been))
+
+5.save to a file
+scala> pair.reduceByKey( _ +  _).map(kv => kv.swap).sortByKey(false).saveAsTextFile("/opt/spark/data/sparkwc1")
+
+
 
