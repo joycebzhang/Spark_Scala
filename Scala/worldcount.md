@@ -1,5 +1,6 @@
 
 
+
 1 Open a scala spark shell in local mode
 
 [root@sandbox-hdp ~]# spark-shell local master
@@ -57,5 +58,25 @@ res16: Array[(Int, String)] = Array((3,pinnace), (20,bone), (2,lug), (2,vailing)
 5.save to a file
 scala> pair.reduceByKey( _ +  _).map(kv => kv.swap).sortByKey(false).saveAsTextFile("/opt/spark/data/sparkwc1")
 
+Multiply Line command:
+scala> val resutl =sc.textFile("/opt/spark/data/shakespeare.txt")
+.filter(line => line.length > 0)
+.flatMap(word => word.split("\\W+"))
+.map(kv => (kv ,1))
+.map(kw => kw.swap)
+.reduceByKey(_ + _)
+.SortedBykey(false)
+.saveAsTextFile("/opt/spark/data/sparkwc1")
 
+result is :
+(26856,the)
+(24116,and)
+(22412,i)
+(19225,to)
+(16018,of)
+(14097,you)
+(13986,a)
+(12283,my)
+(11171,that)
+(10640,in)
 
